@@ -5,17 +5,19 @@ import com.example.spotmatch.entity.UserSongInteraction;
 import com.example.spotmatch.repository.SongRepository;
 import com.example.spotmatch.repository.UserSongInteractionRepository;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class SongPlayCountService {
 
     @Autowired
     private UserSongInteractionRepository interactionRepository;
 
-    @Autowired
-    private MusicPreferenceService musicPreferenceService;
+
+    private final MusicPreferenceService musicPreferenceService;
 
     public void recordSongPlay(Long userId, Long songId) {
         UserSongInteraction interaction = interactionRepository.findByUserIdAndSongId(userId, songId);
@@ -27,6 +29,6 @@ public class SongPlayCountService {
             interaction.setPlayCount(1);
         }
         interactionRepository.save(interaction);
-        musicPreferenceService.updateMusicPreferences(userId); // Trigger preference update
+        musicPreferenceService.updateMusicPreferences(); // Trigger preference update
     }
 }

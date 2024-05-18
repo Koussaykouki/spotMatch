@@ -12,4 +12,6 @@ import java.util.List;
 public interface UserSongInteractionRepository extends JpaRepository<UserSongInteraction, Long> {
     @Query("SELECT s.genre, SUM(usi.playCount) FROM UserSongInteraction usi JOIN usi.song s WHERE usi.user.id = :userId GROUP BY s.genre")
     List<Object[]> sumPlayCountsByGenreForUser(Long userId);
+
+    UserSongInteraction findByUserIdAndSongId(Long userId, Long songId);
 }

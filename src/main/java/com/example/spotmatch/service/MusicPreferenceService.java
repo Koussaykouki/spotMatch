@@ -1,3 +1,5 @@
+package com.example.spotmatch.service;
+
 import com.example.spotmatch.entity.MusicPreference;
 import com.example.spotmatch.entity.User;
 import com.example.spotmatch.entity.UserSongInteraction;
